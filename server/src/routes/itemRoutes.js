@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const numBooks = 0
+let numBooks = 0
 
 
 const routes = function(pool) {
@@ -22,7 +22,7 @@ const routes = function(pool) {
   router.post("/", (req, res) => {
 
     numBooks++
-    res.json({ numBook })
+    res.json({ numBooks })
     // const name = req.body.name;
     // addItem(name).then(data => {
     //   res.json(data);

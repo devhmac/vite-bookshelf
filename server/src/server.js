@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require("express");
 const uniqid = require('uniqid');
 const morgan = require('morgan');
@@ -6,6 +7,8 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+app.use(cors())
 
 // serve static files from ../build (needed for React)
 const cwd = process.cwd();

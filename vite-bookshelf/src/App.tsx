@@ -3,26 +3,32 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
-function App() {
+const fetchData = async () => {
+  try {
+    const response = await fetch("http://localhost:8080/api/items");
+    if (!response.ok) {
+      throw new Error("ayaaaaa no good");
+    }
+    const data = await response.json();
+    return data.numBooks;
+    // setBooks(data.numBooks);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const App = () => {
   const [count, setCount] = useState(0);
   const [books, setBooks] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/api/items");
-        if (!response.ok) {
-          throw new Error("ayaaaaa no good");
-        }
-        const data = await response.json();
-        setBooks(data.numBooks);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
+    fetchData().then((data) => {
+      setBooks(data);
+    });
+    console.log("useeffect firing");
   }, []);
+
+  console.log("component rendering");
 
   const buttonHandler = async () => {
     try {
@@ -72,6 +78,6 @@ function App() {
       </p>
     </>
   );
-}
+};
 
 export default App;
